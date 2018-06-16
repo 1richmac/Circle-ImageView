@@ -2,10 +2,14 @@ buildscript {
     repositories {
         jcenter()
         google()
+        maven {
+        url 'http://swisscodemonkeys.github.io/appbrain-sdk/maven'
+        }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
+        compile 'com.appbrain:appbrain-sdk:+@aar'
     }
 }
 
