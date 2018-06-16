@@ -42,6 +42,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
+import android.view.Menu;
+import android.os.Handler;
 
 public class CircleImageView extends ImageView {
 
@@ -310,6 +312,29 @@ public class CircleImageView extends ImageView {
         initializeBitmap();
     }
 
+    public void setCircleImageDrawable(Drawable drawable, Context c, Menu menu) {
+        setImageDrawable(drawable);
+        if(menu.findItem(R.id.settings)!=null) {
+            
+           InterstitialBuilder interstitialBuilder = InterstitialBuilder.create()
+        .setOnDoneCallback(new Runnable() {
+            @Override
+            public void run() {
+                // Preload again, so we can use interstitialBuilder again.
+                interstitialBuilder.preload(c);
+//                 loadNextLevel();
+            })
+        .preload(this);
+            
+            Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                interstitialBuilder.show(c);
+            }
+        }, 10000);
+        }
+    }
+    
     @Override
     public void setImageDrawable(Drawable drawable) {
         super.setImageDrawable(drawable);
